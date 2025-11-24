@@ -1,0 +1,12 @@
+cd "$(git rev-parse --show-toplevel)" || exit 1
+
+echo "Running lint-staged..."
+npx lint-staged || exit 1
+
+echo "Running full lint..."
+if ! npm run lint; then
+  echo "Full lint failed. Commit aborted."
+  exit 1
+fi
+
+echo "OK: staged files passed lint-staged & full lint."

@@ -1,0 +1,31 @@
+{
+  "name": "chat-root",
+  "private": true,
+  "scripts": {
+    "lint": "npm run lint --prefix server && npm run lint --prefix client",
+    "lint:server": "npm run lint --prefix server",
+    "lint:client": "npm run lint --prefix client",
+    "lint:fix":
+    "npm run lint:fix --prefix server && npm run lint:fix --prefix client",
+    "test": "npm run test:server && npm run test:client:ci",
+    "test:server": "npm test --prefix server",
+    "test:client": "npm test --prefix client",
+    "test:client:ci": "npm run test:ci --prefix client",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.2",
+    "prettier": "^3.6.2"
+  },
+  "lint-staged": {
+    "server/src/**/*.ts": [
+      "npm run lint:server -- --fix",
+      "npm test --prefix server -- --findRelatedTests"
+    ],
+    "client/src/**/*.{ts,tsx,js,jsx}": [
+      "npm run lint:client -- --fix",
+      "npm test --prefix client"
+    ]
+  }
+}
